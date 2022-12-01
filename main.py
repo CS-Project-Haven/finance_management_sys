@@ -1,4 +1,3 @@
-import os, sqlite3
 from User import *
 
 
@@ -9,11 +8,11 @@ from User import *
 #  Integrate CGI to make html for gui
 
 
-def start():
+def main():
     user = User("John", 22)
 
     print(f"{user.name}, {user.age}")
 
 
 if __name__ == '__main__':
-    start()
+    main()
