@@ -54,6 +54,3 @@ class DBHandler:
             DBHandler.create_table(conn, sql_create_tasks_table)
         else:
             print("Error!\nCannot create the database connection.")
-
-    if __name__ == '__DB_Handler__':
-        initiate()

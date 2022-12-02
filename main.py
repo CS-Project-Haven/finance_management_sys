@@ -1,4 +1,5 @@
 from User import *
+from DBHandler import *
 
 
 # TODO: The system must be able to handle and record transactions in a database,
@@ -10,8 +11,8 @@ from User import *
 
 def main():
     user = User("John", 22)
-
-    print(f"{user.name}, {user.age}")
+    db_handler = DBHandler()
+    db_handler.initiate()
 
 
 if __name__ == '__main__':
