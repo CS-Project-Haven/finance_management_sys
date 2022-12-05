@@ -1,56 +1,33 @@
 import sqlite3
-from sqlite3 import Error
 
 
 class DBHandler:
 
-    @staticmethod
-    def create_connection(db_file):
-        conn = None
-        try:
-            conn = sqlite3.connect(db_file)
-            return conn
-        except Error as e:
-            print(e)
+    def __init__(self):
+        self.db = None
+        self.conn = None
 
-        return conn
+    def connect(self):
+        db_file = r"D:\PycharmProjects\finance_management_sys\resources\database.db"
+        self.conn = sqlite3.connect(db_file)
+        self.db = self.conn.cursor()
 
-    @staticmethod
-    def create_table(conn, create_table_sql):
-        try:
-            c = conn.cursor()
-            c.execute(create_table_sql)
-        except Error as e:
-            print(e)
+    def close(self):
+        self.conn.close()
 
-    @staticmethod
-    def initiate():
-        database = r"D:\PycharmProjects\finance_management_sys\resources\database.db"
+    def create_tables(self):
+        self.db.execute("""CREATE TABLE IF NOT EXISTS user (
+                            user_id INTEGER PRIMARY KEY NOT NULL,
+                            name TEXT NOT NULL,
+                            age INTEGER,
+                            balance INTEGER
+                        );""")
 
-        sql_create_projects_table = """ CREATE TABLE IF NOT EXISTS projects (
-                                            id integer PRIMARY KEY,
-                                            name text NOT NULL,
-                                            begin_date text,
-                                            end_date text
-                                        ); """
-
-        sql_create_tasks_table = """CREATE TABLE IF NOT EXISTS tasks (
-                                            id integer PRIMARY KEY,
-                                            name text NOT NULL,
-                                            priority integer,
-                                            status_id integer NOT NULL, 
-                                            project_id integer NOT NULL, 
-                                            begin_date text NOT NULL, 
-                                            end_date text NOT NULL,
-                                            FOREIGN KEY (project_id) REFERENCES projects (id)     
-                                        );"""
-
-        conn = DBHandler.create_connection(database)
-
-        if conn is not None:
-
-            DBHandler.create_table(conn, sql_create_projects_table)
-
-            DBHandler.create_table(conn, sql_create_tasks_table)
-        else:
-            print("Error!\nCannot create the database connection.")
+        self.db.execute("""CREATE TABLE IF NOT EXISTS item (
+                            item_id INTEGER PRIMARY KEY NOT NULL,
+                            item_name TEXT NOT NULL,
+                            category_name TEXT NOT NULL,
+                            item_price FLOAT,
+                            date DATE,
+                            FOREIGN KEY (item_id) REFERENCES user (user_id)     
+                        );""")
