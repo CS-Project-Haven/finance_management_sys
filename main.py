@@ -23,6 +23,9 @@ class Main:
             print()
         print()
 
+    def balance(self):
+        pass
+
     def main(self):
         user = User(user_id=1, name="John", age=22, balance=100)
         item = Item(1, "Glasses", "Clothing", 12.50, "2022-12-04")

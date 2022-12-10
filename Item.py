@@ -8,4 +8,3 @@ class Item:
         self.category_name = category_name
         self.item_price = item_price
         self.date = date
-
