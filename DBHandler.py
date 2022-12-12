@@ -25,8 +25,8 @@ class DBHandler:
 
         self.db.execute("""CREATE TABLE IF NOT EXISTS item (
                             item_id INTEGER PRIMARY KEY NOT NULL,
-                            item_name TEXT NOT NULL,
-                            category_name TEXT NOT NULL,
+                            item_name TEXT,
+                            category_name TEXT,
                             item_price FLOAT,
                             date DATE,
                             FOREIGN KEY (item_id) REFERENCES user (user_id)     
